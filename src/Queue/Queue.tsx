@@ -7,10 +7,10 @@ import { TPatient } from '../types';
 
 import './queue.css'
 
-export const IDPoli = '422b4385-984a-4fbb-8e63-24db845e5ead'
+export const IDPoli = 'e23a0a17-910f-48c9-82ff-f85dc1ba8142'
 export const hospitalID = 'deaaa25d-dcd5-4d76-99d1-9b90247d6904'
 const updatePatientStatusURL = baseURL + "/api/v1/admin/queue/update-status"
-const getDoctorListURL = baseURL + '/api/v1/doctor/'
+// const getDoctorListURL = baseURL + '/api/v1/doctor/'
 
 export default function Queue() {
   const [value, setValue] = useState(0);
@@ -22,7 +22,7 @@ export default function Queue() {
   const memoizedGetPatientList = useCallback(
     async (state: string, onSuccess: (data: any) => void) => {
       try {
-        const result = await fetch(getPatientsURL + 'deaaa25d-dcd5-4d76-99d1-9b90247d6904/422b4385-984a-4fbb-8e63-24db845e5ead?state=' + state)
+        const result = await fetch(getPatientsURL + 'deaaa25d-dcd5-4d76-99d1-9b90247d6904/' + IDPoli + '?state=' + state)
         if (result.ok) {
           const data = await result.json()
           // console.log(data.data)
@@ -106,9 +106,9 @@ export default function Queue() {
 
   return (
     <div>
-      <div style={{ minHeight: 300 }}>
+      <div style={{ minHeight: 200 }}>
         <div style={{ fontSize: 20, margin: 40 }}>
-          Antrian untuk dokter {currentPatient && currentPatient.length > 0 && currentPatient[0].doctor_fullname}
+          Antrian untuk dokter {waitingPatients && waitingPatients.length > 0 && waitingPatients[0].doctor_fullname}
         </div>
         <div>
           Pasien Saat Ini
@@ -117,13 +117,13 @@ export default function Queue() {
           {currentPatient && currentPatient.length > 0 ? currentPatient[0].patient_fullname : 'Belum ada Pasien yang masuk'}
         </div>
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: 10 }}>
-          <Button onClick={onCheckinClicked}  style={{ background: '#1E4383'}} variant="contained" color="primary">
+          <Button onClick={onCheckinClicked}  style={{ width: 176, background: '#1E4383'}} variant="contained" color="primary">
             Check-in Pasien
           </Button>
-          <Button onClick={onCheckoutClicked}  style={{ background: '#FFAB29', color: 'white', margin: '0px 10px' }} variant="contained">
+          <Button onClick={onCheckoutClicked}  style={{ background: '#FFAB29', width: 176, color: 'white', margin: '0px 10px' }} variant="contained">
             Check-out Pasien
           </Button>
-          <Button onClick={onSkipClicked} variant="contained" color="secondary">
+          <Button onClick={onSkipClicked} style={{ width: 176 }} variant="contained" color="secondary">
             Skip
           </Button>
           

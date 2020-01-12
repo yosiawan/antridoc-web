@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { List, ListItem, ListItemText } from '@material-ui/core'
 
 import { TPatient } from '../types';
-import { IDPoli, hospitalID } from '../Queue/Queue';
+import { IDPoli } from '../Queue/Queue';
 
 type TQueueListProps = {
   statusType: string
@@ -11,6 +11,7 @@ type TQueueListProps = {
 
 export const baseURL = "http://167.71.203.148"
 export const getPatientsURL = baseURL + "/api/v1/admin/queue/index/"
+export const scheduleID = "08377387-8fa8-400c-93bc-ec22b88e453c"
 
 export default function QueueList(props: TQueueListProps) {
   const [patientList, setPatientList] = useState<TPatient[]>([])
@@ -18,7 +19,7 @@ export default function QueueList(props: TQueueListProps) {
   const memoizedGetPatientList = useCallback(
     async (onSuccess: (data: any) => void) => {
       try {
-        const result = await fetch(getPatientsURL + "deaaa25d-dcd5-4d76-99d1-9b90247d6904/" + IDPoli + "?page=1" + '&state=' + props.statusType)
+        const result = await fetch(getPatientsURL + "deaaa25d-dcd5-4d76-99d1-9b90247d6904/" + IDPoli + "?page=1&state=" + props.statusType)
         if (result.ok) {
           const data = await result.json()
           // data.data.map((patient: TPatient) => console.log(patient.process_status))
@@ -37,7 +38,7 @@ export default function QueueList(props: TQueueListProps) {
   useEffect(() => {
     memoizedGetPatientList((data) => {
       setPatientList(data
-        .filter((patient: TPatient) => patient.doctor_schedule_id === "a8fee77a-f427-4830-bb18-5e2a02cd10d0")
+        .filter((patient: TPatient) => patient.doctor_schedule_id === scheduleID)
         .sort((a: TPatient, b: TPatient) => (
           new Date(a.submit_time).getTime() - new Date(b.submit_time).getTime()
         ))
@@ -46,7 +47,7 @@ export default function QueueList(props: TQueueListProps) {
   }, [props.hack, memoizedGetPatientList])
 
   return (
-      <List style={{ height: 300, overflow: 'scroll' }} component="nav" aria-label="secondary mailbox folders">
+      <List style={{ height: 380, overflow: 'scroll' }} component="nav" aria-label="secondary mailbox folders">
         {
           patientList.map((patient: any, index) => (
             <ListItem key={index} >
