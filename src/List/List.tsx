@@ -6,8 +6,8 @@ import { IDPoli, hospitalID } from '../Queue/Queue';
 
 type TQueueListProps = {
   statusType: string
+  hack: boolean
 }
-
 
 export const baseURL = "http://167.71.203.148"
 export const getPatientsURL = baseURL + "/api/v1/admin/queue/index/"
@@ -39,11 +39,11 @@ export default function QueueList(props: TQueueListProps) {
       setPatientList(data
         .filter((patient: TPatient) => patient.doctor_schedule_id === "a8fee77a-f427-4830-bb18-5e2a02cd10d0")
         .sort((a: TPatient, b: TPatient) => (
-          new Date(b.submit_time).getTime() - new Date(a.submit_time).getTime()
+          new Date(a.submit_time).getTime() - new Date(b.submit_time).getTime()
         ))
       )
     })
-  }, [memoizedGetPatientList])
+  }, [props.hack, memoizedGetPatientList])
 
   return (
       <List style={{ height: 300, overflow: 'scroll' }} component="nav" aria-label="secondary mailbox folders">
