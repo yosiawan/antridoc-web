@@ -72,7 +72,10 @@ export default function Queue() {
   }
 
   async function onCheckinClicked() {
-    if (waitingPatients && waitingPatients.length > 0) {
+    if (
+      currentPatient && currentPatient.length < 1 &&
+      waitingPatients && waitingPatients.length > 0
+    ) {
       await updatePatientStatusHandler(waitingPatients[0].user_id, waitingPatients[0].queue_id, "1")
     }
   }
@@ -97,7 +100,7 @@ export default function Queue() {
 
       if (result.ok) {
         console.log('success')
-        SET_HACK_TO_RERENDER(true)
+        SET_HACK_TO_RERENDER(!HACK_TO_RERENDER)
       }
     } catch(err) {
       console.log('failed to update patient status, ', err)

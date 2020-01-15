@@ -9,13 +9,14 @@ type TQueueListProps = {
   hack: boolean
 }
 
-export const baseURL = "http://167.71.203.148"
+// export const baseURL = "http://167.71.203.148"
+export const baseURL = "https://antridoc.com"
 export const getPatientsURL = baseURL + "/api/v1/admin/queue/index/"
 export const scheduleID = "08377387-8fa8-400c-93bc-ec22b88e453c"
 
 export default function QueueList(props: TQueueListProps) {
   const [patientList, setPatientList] = useState<TPatient[]>([])
-  
+  const [loading, setLoading] = useState<boolean>(true)
   const memoizedGetPatientList = useCallback(
     async (onSuccess: (data: any) => void) => {
       try {
@@ -43,17 +44,24 @@ export default function QueueList(props: TQueueListProps) {
           new Date(a.submit_time).getTime() - new Date(b.submit_time).getTime()
         ))
       )
+      setLoading(false)
     })
   }, [props.hack, memoizedGetPatientList])
 
   return (
       <List style={{ height: 380, overflow: 'scroll' }} component="nav" aria-label="secondary mailbox folders">
         {
-          patientList.map((patient: any, index) => (
-            <ListItem key={index} >
-              <ListItemText style={{ textAlign: 'center' }} primary={patient.full_name} />
-            </ListItem>
-          ))
+          loading ? 
+            <div>Loading . . .</div>
+            :
+            patientList.length < 1 ?
+              <div>Tidak ada pasien yang mengantri</div>
+              :
+              patientList.map((patient: any, index) => (
+                <ListItem key={index} >
+                  <ListItemText style={{ textAlign: 'center' }} primary={patient.full_name} />
+                </ListItem>
+              ))
         }
       </List>
   );
