@@ -1,8 +1,11 @@
-import React from 'react';
+import React from "react";
 
-import './App.css';
+// import Queue from "./Queue/Queue";
+// import { poliID } from "./config";
+import Clinic from "./Clinic/Clinic";
 // import LoginView from './Login/Login';
-import Queue from './Queue/Queue';
+
+import "./App.css";
 
 const App: React.FC = () => {
   return (
@@ -11,9 +14,10 @@ const App: React.FC = () => {
         Antridoc
       </header> */}
       {/* <LoginView/> */}
-      <Queue />
+      {/* <Queue poliID={poliID} /> */}
+      <Clinic/>
     </div>
   );
-}
+};
 
 export default App;
