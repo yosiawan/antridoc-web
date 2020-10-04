@@ -1,0 +1,12 @@
+.header {
+  display: flex;
+  height: 61px;
+  background-color: #abaeb3;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.header__username {
+  padding: 20px;
+  margin-right: 20px;
+}

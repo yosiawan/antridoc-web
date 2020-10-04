@@ -1,6 +1,9 @@
 {
   "conventionalCommits.scopes": [
     "Dependencies",
-    "Theme"
+    "Theme",
+    "Login",
+    "Main Menu",
+    "Main Header"
   ]
 }
