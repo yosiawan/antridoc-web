@@ -1,21 +1,16 @@
 import React from "react";
 
-// import Queue from "./Queue/Queue";
-// import { poliID } from "./config";
-import Clinic from "./Clinic/Clinic";
-// import LoginView from './Login/Login';
-
-import "./App.css";
+import "./App.css"
+import HeaderView from "./Header/Header";
+import MenuBarView from "./MenuBar/MenuBar";
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      {/* <header className="App-header">
-        Antridoc
-      </header> */}
-      {/* <LoginView/> */}
-      {/* <Queue poliID={poliID} /> */}
-      <Clinic/>
+    <div style={{ display: "flex", width: "100%", height: "100%" }}>
+      <MenuBarView />
+      <div style={{ width: "100%" }}>
+        <HeaderView />
+      </div>
     </div>
   );
 };
